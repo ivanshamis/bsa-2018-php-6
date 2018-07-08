@@ -19,7 +19,9 @@ class CurrencyRepository implements CurrencyRepositoryInterface
     public function findActive(): array
     {
         foreach ($this->currencies as $currency) {
-            if ($currency->isActive()===true) { $active_currencies[] = $currency; }
+            if ($currency->isActive()===true) {
+                $active_currencies[] = $currency; 
+            }
         }
         return $active_currencies;
     }
@@ -28,7 +30,9 @@ class CurrencyRepository implements CurrencyRepositoryInterface
     {
         $find = NULL;
         foreach ($this->currencies as $currency) {
-            if ($currency->getId()==$id) { $find = $currency; }
+            if ($currency->getId()==$id) {
+                $find = $currency; 
+            }
         }
         return $find;
     }
@@ -43,9 +47,9 @@ class CurrencyRepository implements CurrencyRepositoryInterface
         $currencies = $this->currencies;
         for ($i=0; $i<count($currencies); $i++) {
             if ($currencies[$i]->getId()==$currency->getId()) {
-                 unset($currencies[$i]); 
-                 break;
-                }
+                unset($currencies[$i]); 
+                break;
             }
+        }
     }
 }

@@ -30,10 +30,11 @@ Route::get('/currencies', function () {
 Route::get('/currencies/{id}', function ($id) {
     $repository =  App::make(CurrencyRepositoryInterface::class);
     $currency = $repository->findById($id);
-    if ($currency===NULL) { return Response('Error HTTP Response',404); }
-    else    
-        {
-            $presented = CurrencyPresenter::present($currency);   
-            return Response(json_encode($presented),200)->header('Content-Type', 'application/json');;
-        }
+    if ($currency===NULL) {
+        return Response('Error HTTP Response',404); 
+    }
+    else {
+        $presented = CurrencyPresenter::present($currency);   
+        return Response(json_encode($presented),200)->header('Content-Type', 'application/json');;
+    }
 });
