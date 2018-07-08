@@ -8,6 +8,6 @@ class RedirectToCurrenciesMiddleware
 {
     public function handle($request, Closure $next)
     {
-        return redirect('/admin/currencies');
+        return redirect()->route('currencies');
     }
 }

@@ -1,8 +1,5 @@
 <?php
 
-use App\Services\{CurrencyRepositoryInterface,CurrencyPresenter};
-//use App\Http\Middleware\RedirectToCurrenciesMiddleware;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,23 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*Route::get('/admin/currencies', function () {
-    $repository =  App::make(CurrencyRepositoryInterface::class);
-    $currencies = $repository->findAll();
-    $presented = CurrencyPresenter::present($currencies);    
-    return Response::view('currencies', ['currencies' => $presented]);
-});
-
-Route::get('/admin', function () {
-})->middleware('redirect');*/
-
 Route::prefix('/admin')->group(function () {
-    Route::get('/', function () {
-    })->middleware('redirect');
-    Route::get('/currencies', function () {
-        $repository =  App::make(CurrencyRepositoryInterface::class);
-        $currencies = $repository->findAll();
-        $presented = CurrencyPresenter::present($currencies);    
-        return Response::view('currencies', ['currencies' => $presented]);
-    }); 
+    Route::get('/', 'WebCurrencyController')->middleware('adminRedirect');
+    Route::get('/currencies', 'WebCurrencyController')->name('currencies'); 
 }); 

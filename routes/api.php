@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Services\{CurrencyRepositoryInterface,CurrencyPresenter};
 
 /*
 |--------------------------------------------------------------------------
@@ -18,25 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/currencies', function () {
-    $repository =  App::make(CurrencyRepositoryInterface::class);
-    $currencies = $repository->findActive();
-    $presented = CurrencyPresenter::present($currencies);    
-    return Response(json_encode($presented),200)->header('Content-Type', 'application/json');
-});
-
-Route::get('/currencies/{id}', function ($id) {
-    $repository =  App::make(CurrencyRepositoryInterface::class);
-    $currency = $repository->findById($id);
-    if ($currency===NULL) {
-        return Response('Error HTTP Response',404); 
-    }
-    else {
-        $presented = CurrencyPresenter::present($currency);   
-        return Response(json_encode($presented),200)->header('Content-Type', 'application/json');
-    }
+Route::prefix('/currencies')->group(function () {
+    Route::get('/','ApiCurrencyController@showActive');
+    Route::get('/{id}','ApiCurrencyController@show');
 });
 
 Route::prefix('/admin')->group(function () {
-    Route::apiResource('currencies','CurrencyController');
+    Route::apiResource('/currencies','ApiCurrencyController');
 });

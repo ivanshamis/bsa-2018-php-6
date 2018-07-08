@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>All currencies for admin</title>
+        <title>All currencies</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -58,21 +58,23 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title m-b-md">
-                    All currencies for admin 
+                    All currencies 
                 </div>
                 
                 <table>
                 @foreach ($currencies as $currency)
                     <tr>
-                     <td>{{$currency['short_name']}}</td>
-                     <td>${{$currency['actual_course']}}</td>
-                     <td>
+                        <td>{{$currency['name']}}</td>
+                        <td><small>{{$currency['short_name']}}</small></td>
+                        <td>${{$currency['actual_course']}}</td>
+                        <td>{{$currency['actual_course_date']->format('d.m.Y H:i')}}</td>
+                        <td>
                         @if ($currency['active']===true)
-                        active
+                        <b>active</b>
                         @else
                         not active
                         @endif
-                     </td>
+                        </td>
                     </tr>
                 @endforeach
                 </table>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\{CurrencyRepository,Currency,CurrencyPresenter};
 
-class CurrencyController extends Controller
+class ApiCurrencyController extends Controller
 {
     protected $repository;
 
@@ -17,6 +17,13 @@ class CurrencyController extends Controller
     public function index()
     {
         $currencies = $this->repository->findAll();
+        $presented = CurrencyPresenter::present($currencies);   
+        return Response(json_encode($presented),200)->header('Content-Type', 'application/json');        
+    }
+
+    public function showActive()
+    {
+        $currencies = $this->repository->findActive();
         $presented = CurrencyPresenter::present($currencies);   
         return Response(json_encode($presented),200)->header('Content-Type', 'application/json');        
     }
