@@ -6,16 +6,16 @@ class Currency
 {
     protected $id;
     protected $name;
-    protected $price;
-    protected $imageUrl;
-    protected $dailyChangePercent;
+    protected $shortName;
+    protected $actualCourse;
+    protected $actualCoursDate;
     protected $active;
 
-    public function __construct($id,$name,$shortname,$actualCourse,$actualCoursDate,$active)
+    public function __construct($id,$name,$shortName,$actualCourse,$actualCoursDate,$active)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->shortname = $shortname;
+        $this->shortName = $shortName;
         $this->actualCourse = $actualCourse;
         $this->actualCoursDate = $actualCoursDate;
         $this->active = $active;
@@ -31,7 +31,7 @@ class Currency
     }
     public function getShortName()
     {
-        return $this->shortname;
+        return $this->shortName;
     }
     public function getActualCourse()
     {

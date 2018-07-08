@@ -21,10 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/currencies', function () {
     $repository =  App::make(CurrencyRepositoryInterface::class);
     $currencies = $repository->findActive();
-    foreach ($currencies as $currency) { 
-        $presented[] = CurrencyPresenter::present($currency); 
-    }   
-    return Response(json_encode($presented),200)->header('Content-Type', 'application/json');;
+    $presented = CurrencyPresenter::present($currencies);    
+    return Response(json_encode($presented),200)->header('Content-Type', 'application/json');
 });
 
 Route::get('/currencies/{id}', function ($id) {
@@ -35,6 +33,10 @@ Route::get('/currencies/{id}', function ($id) {
     }
     else {
         $presented = CurrencyPresenter::present($currency);   
-        return Response(json_encode($presented),200)->header('Content-Type', 'application/json');;
+        return Response(json_encode($presented),200)->header('Content-Type', 'application/json');
     }
+});
+
+Route::prefix('/admin/')->group(function () {
+    Route::apiResource('currencies','CurrencyController');
 });
