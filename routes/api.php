@@ -37,6 +37,6 @@ Route::get('/currencies/{id}', function ($id) {
     }
 });
 
-Route::prefix('/admin/')->group(function () {
+Route::prefix('/admin')->group(function () {
     Route::apiResource('currencies','CurrencyController');
 });
