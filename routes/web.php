@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('/admin')->group(function () {
+    Route::get('/', 'Currency\WebController')->middleware('adminRedirect');
+    Route::get('/currencies', 'Currency\WebController')->name('adminCurrencies'); 
+}); 
