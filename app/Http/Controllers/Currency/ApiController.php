@@ -1,19 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Currency;
 
 use Illuminate\Http\Request;
-use App\Services\{CurrencyRepository,Currency,CurrencyPresenter};
+use App\Services\{Currency,CurrencyPresenter};
 
-class ApiCurrencyController extends Controller
+class ApiController extends CurrencyController
 {
-    protected $repository;
-
-    public function __construct(CurrencyRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     public function index()
     {
         $currencies = $this->repository->findAll();

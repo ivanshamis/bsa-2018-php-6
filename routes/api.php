@@ -18,10 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('/currencies')->group(function () {
-    Route::get('/','ApiCurrencyController@showActive');
-    Route::get('/{id}','ApiCurrencyController@show');
+    Route::get('/','Currency\ApiController@showActive');
+    Route::get('/{id}','Currency\ApiController@show');
 });
 
 Route::prefix('/admin')->group(function () {
-    Route::apiResource('/currencies','ApiCurrencyController');
+    Route::apiResource('/currencies','Currency\ApiController');
 });
