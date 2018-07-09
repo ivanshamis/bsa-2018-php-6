@@ -11,8 +11,14 @@ class Currency
     protected $actualCoursDate;
     protected $active;
 
-    public function __construct(int $id,string $name,string $shortName,float $actualCourse,
-    \DateTime $actualCoursDate,bool $active)
+    public function __construct(
+        int $id,
+        string $name,
+        string $shortName,
+        float $actualCourse,
+        \DateTime $actualCoursDate,
+        bool $active
+    )
     {
         $this->id = $id;
         $this->name = $name;

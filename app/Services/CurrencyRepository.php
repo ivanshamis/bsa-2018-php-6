@@ -53,7 +53,8 @@ class CurrencyRepository implements CurrencyRepositoryInterface
         }
     }
 
-    public function newId() {
+    public function newId(): int 
+    {
         return max(array_keys($this->currencies))+1;
     }
 }
