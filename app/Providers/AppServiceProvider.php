@@ -25,10 +25,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(CurrencyRepositoryInterface::class, CurrencyRepository::class);
+        $this->app->bind(CurrencyRepositoryInterface::class, function($app) {
+            return new CurrencyRepository(CurrencyGenerator::generate());
+        });
+        /*$this->app->bind(CurrencyRepositoryInterface::class, CurrencyRepository::class);
         
         $this->app->singleton(CurrencyRepository::class, function($app) {
             return new CurrencyRepository(CurrencyGenerator::generate());
-        });
+        });*/
     }
 }
