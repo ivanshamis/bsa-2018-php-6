@@ -6,9 +6,8 @@ class CurrencyRepository implements CurrencyRepositoryInterface
 {
     private $currencies;
 
-    public function __construct()
+    public function __construct($currencies)
     {
-        $currencies = CurrencyGenerator::generate();
         foreach ($currencies as $currency) {
             $this->currencies[$currency->getId()] = $currency;
         }

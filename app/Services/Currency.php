@@ -11,7 +11,8 @@ class Currency
     protected $actualCoursDate;
     protected $active;
 
-    public function __construct($id,$name,$shortName,$actualCourse,$actualCoursDate,$active)
+    public function __construct(int $id,string $name,string $shortName,float $actualCourse,
+    \DateTime $actualCoursDate,bool $active)
     {
         $this->id = $id;
         $this->name = $name;
@@ -61,7 +62,7 @@ class Currency
         return $this->actualCoursDate;
     }
 
-    public function setActualCourseDate($actualCoursDate): void
+    public function setActualCourseDate(\Datetime $actualCoursDate): void
     {
         $this->actualCoursDate = $actualCoursDate;
     }

@@ -34,13 +34,14 @@ class ApiController extends CurrencyController
     }
 
     public function store(Request $request)
-    {
+    {    
+        $date = \DateTime::createFromFormat('Y-m-d H-i-s',$request->input('actual_course_date'));
         $currency = new Currency(
             $this->repository->newId(),
             $request->input('name'),
             $request->input('short_name'),
             $request->input('actual_course'),
-            $request->input('actual_course_date'),
+            $date,
             $request->input('active')
         );
         $this->repository->save($currency);
@@ -65,7 +66,8 @@ class ApiController extends CurrencyController
                 $currency->setActualCourse($request->input('actual_course'));
             }
             if ($request->has('actual_course_date')) {
-                $currency->setActualCourseDate($request->input('actual_course_date'));
+                $date = \DateTime::createFromFormat('Y-m-d H-i-s',$request->input('actual_course_date'));
+                $currency->setActualCourseDate($date);
             }
             if ($request->has('active')) {
                 $currency->setActive($request->input('active'));
