@@ -67,7 +67,7 @@
                         <td>{{$currency['name']}}</td>
                         <td><small>{{$currency['short_name']}}</small></td>
                         <td>${{$currency['actual_course']}}</td>
-                        <td>{{$currency['actual_course_date']->format('d.m.Y H:i')}}</td>
+                        <td>{{$currency['actual_course_date']}}</td>
                         <td>
                         @if ($currency['active']===true)
                         <b>active</b>
