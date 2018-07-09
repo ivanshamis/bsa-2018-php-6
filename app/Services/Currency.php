@@ -56,7 +56,7 @@ class Currency
         $this->actualCourse = $actualCourse;
     }
 
-    public function getActualCourseDate()
+    public function getActualCourseDate(): \DateTime
     {
         return $this->actualCoursDate;
     }
