@@ -8,7 +8,10 @@ class CurrencyRepository implements CurrencyRepositoryInterface
 
     public function __construct()
     {
-        $this->currencies = CurrencyGenerator::generate();
+        $currencies = CurrencyGenerator::generate();
+        foreach ($currencies as $currency) {
+            $this->currencies[$currency->getId()] = $currency;
+        }
     }
 
     public function findAll(): array
@@ -31,7 +34,8 @@ class CurrencyRepository implements CurrencyRepositoryInterface
         $find = NULL;
         foreach ($this->currencies as $currency) {
             if ($currency->getId()==$id) {
-                $find = $currency; 
+                $find = $currency;
+                break; 
             }
         }
         return $find;
@@ -39,47 +43,18 @@ class CurrencyRepository implements CurrencyRepositoryInterface
 
     public function save(Currency $currency): void
     {   
-        // updating existing currency at first
-        $maxId = 0;
-        $found = false;
-        $currencies = $this->currencies;
-        for ($i=0; $i<count($currencies); $i++) { 
-            $cur_id = $currencies[$i]->getId();
-            if ($maxId<$cur_id) {
-                $maxId = $cur_id;
-            }
-            if ($cur_id==$currency->getId()) {
-                $currencies[$i] = $currency; 
-                $found = true;
-                break;
-            }
-        }
-        // creating new currency if nothing to update
-        if (!$found) {  
-            $id = $currency->getId();
-            if ($id===NULL) {
-                $id = $maxId+1;
-            }
-            $createCurrency = new Currency(
-                $id,
-                $currency->getName(),
-                $currency->getShortName(),
-                $currency->getActualCourse(),
-                $currency->getActualCourseDate(),
-                $currency->isActive()
-            );    
-            $this->currencies[] = $createCurrency;
-        }
+        $this->currencies[$currency->getId()] = $currency;
     }
 
     public function delete(Currency $currency): void
     {
-        $currencies = $this->currencies;
-        for ($i=0; $i<count($currencies); $i++) {
-            if ($currencies[$i]->getId()==$currency->getId()) {
-                unset($currencies[$i]); 
-                break;
-            }
+        $id = $currency->getId();
+        if ($this->findById($id)!==NULL) {
+            unset($this->currencies[$id]);
         }
+    }
+
+    public function newId() {
+        return max(array_keys($this->currencies))+1;
     }
 }

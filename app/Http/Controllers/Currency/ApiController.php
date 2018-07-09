@@ -36,7 +36,7 @@ class ApiController extends CurrencyController
     public function store(Request $request)
     {
         $currency = new Currency(
-            NULL,
+            $this->repository->newId(),
             $request->input('name'),
             $request->input('short_name'),
             $request->input('actual_course'),
@@ -56,40 +56,20 @@ class ApiController extends CurrencyController
         }
         else {
             if ($request->has('name')) {
-                $name = $request->input('name');
+                $currency->setName($request->input('name'));
             }
-            else {
-                $name = $currency->getName();
-            }
-
             if ($request->has('short_name')) {
-                $shortName = $request->input('short_name');
+                $currency->setShortName($request->input('short_name'));
             }
-            else {
-                $shortName = $currency->getShortName();
-            }
-
             if ($request->has('actual_course')) {
-                $actualCourse = $request->input('actual_course');
+                $currency->setActualCourse($request->input('actual_course'));
             }
-            else {
-                $actualCourse = $currency->getActualCourse();
-            }
-
             if ($request->has('actual_course_date')) {
-                $actualCourseDate = $request->input('actual_course_date');
+                $currency->setActualCourseDate($request->input('actual_course_date'));
             }
-            else {
-                $actualCourseDate = $currency->getActualCourseDate();
-            }
-
             if ($request->has('active')) {
-                $active = $request->input('active');
+                $currency->setActive($request->input('active'));
             }
-            else {
-                $active = $currency->isActive();
-            }
-            $currency = new Currency($id, $name, $shortName, $actualCourse, $actualCourseDate, $active);
             $this->repository->save($currency);            
             $presented = CurrencyPresenter::present($currency);   
             return Response(json_encode($presented),200)->header('Content-Type', 'application/json');

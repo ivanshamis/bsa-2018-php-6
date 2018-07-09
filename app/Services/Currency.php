@@ -21,29 +21,58 @@ class Currency
         $this->active = $active;
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
-    public function getName()
+
+    public function getName(): string
     {
         return $this->name;
     }
-    public function getShortName()
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getShortName(): string
     {
         return $this->shortName;
     }
-    public function getActualCourse()
+
+    public function setShortName(string $shortName): void
+    {
+        $this->shortName = $shortName;
+    }
+
+    public function getActualCourse(): float
     {
         return $this->actualCourse;
     }
+
+    public function setActualCourse(float $actualCourse): void
+    {
+        $this->actualCourse = $actualCourse;
+    }
+
     public function getActualCourseDate()
     {
         return $this->actualCoursDate;
     }
 
-    public function isActive()
+    public function setActualCourseDate($actualCoursDate): void
+    {
+        $this->actualCoursDate = $actualCoursDate;
+    }
+
+    public function isActive(): bool
     {
         return $this->active;
+    }
+
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
     }
 }
