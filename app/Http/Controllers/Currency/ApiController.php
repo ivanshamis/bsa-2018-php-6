@@ -10,18 +10,18 @@ class ApiController extends CurrencyController
     public function index()
     {
         $currencies = $this->repository->findAll();
-        $presented = CurrencyPresenter::present($currencies);   
+        $presented = CurrencyPresenter::presentMany($currencies);   
         return Response(json_encode($presented),200)->header('Content-Type', 'application/json');        
     }
 
     public function showActive()
     {
         $currencies = $this->repository->findActive();
-        $presented = CurrencyPresenter::present($currencies);   
+        $presented = CurrencyPresenter::presentMany($currencies);   
         return Response(json_encode($presented),200)->header('Content-Type', 'application/json');        
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         $currency = $this->repository->findById($id);
         if ($currency===NULL) {
@@ -49,7 +49,7 @@ class ApiController extends CurrencyController
         return Response(json_encode($presented),200)->header('Content-Type', 'application/json');  
     }
 
-    public function update($id, Request $request)
+    public function update(int $id, Request $request)
     {
         $currency = $this->repository->findById($id);
         if ($currency===NULL) {
@@ -78,7 +78,7 @@ class ApiController extends CurrencyController
         }
     }
 
-    public function destroy($id)
+    public function destroy(int $id)
     {  
         $currency = $this->repository->findById($id);
         if ($currency===NULL) {
